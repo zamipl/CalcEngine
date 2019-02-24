@@ -83,11 +83,5 @@ namespace CalcEngine
             isNum = long.TryParse(s, System.Globalization.NumberStyles.HexNumber, null, out long output);
             return isNum;
         }
-
-        static object IsHexNumber(List<Expression> p)
-        {
-            var input = (string)p[0];
-            return Int32.TryParse(input, System.Globalization.NumberStyles.HexNumber, null, out int myInt);
-        }
     }
 }
