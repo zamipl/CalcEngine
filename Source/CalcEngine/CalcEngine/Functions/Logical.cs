@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CalcEngine
 {
@@ -12,7 +13,9 @@ namespace CalcEngine
             ce.RegisterFunction("IF", 3, If);
             ce.RegisterFunction("TRUE", 0, True);
             ce.RegisterFunction("FALSE", 0, False);
+            ce.RegisterFunction("ISNUM", 1, 1,IsNumber);
         }
+
 #if DEBUG
         public static void Test(CalcEngine ce)
         {
@@ -30,6 +33,9 @@ namespace CalcEngine
             ce.Test("IF(5 > 14, true, false)", false);
             ce.Test("TRUE()", true);
             ce.Test("FALSE()", false);
+            ce.Test("ISNUM(1234)", true);
+            ce.Test("ISNUM(12.34)", true);
+            ce.Test("ISNUM(121.34)", true);
         }
 #endif
         static object And(List<Expression> p)
@@ -67,6 +73,21 @@ namespace CalcEngine
         static object False(List<Expression> p)
         {
             return false;
+        }
+
+        static object IsNumber(List<Expression> p)
+        {
+            var s = (string)p[0];
+            bool isNum = Double.TryParse(s, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out double retNum);
+            if (isNum) return isNum;                        
+            isNum = long.TryParse(s, System.Globalization.NumberStyles.HexNumber, null, out long output);
+            return isNum;
+        }
+
+        static object IsHexNumber(List<Expression> p)
+        {
+            var input = (string)p[0];
+            return Int32.TryParse(input, System.Globalization.NumberStyles.HexNumber, null, out int myInt);
         }
     }
 }
