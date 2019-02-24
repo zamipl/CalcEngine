@@ -36,6 +36,7 @@ namespace CalcEngine
             ce.Test("ISNUM(1234)", true);
             ce.Test("ISNUM(12.34)", true);
             ce.Test("ISNUM(121.34)", true);
+            ce.Test("ISNUM(121A.34)", false);
         }
 #endif
         static object And(List<Expression> p)
