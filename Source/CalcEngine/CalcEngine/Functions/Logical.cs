@@ -77,11 +77,7 @@ namespace CalcEngine
 
         static object IsNumber(List<Expression> p)
         {
-            var s = (string)p[0];
-            bool isNum = Double.TryParse(s, System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out double retNum);
-            if (isNum) return isNum;                        
-            isNum = long.TryParse(s, System.Globalization.NumberStyles.HexNumber, null, out long output);
-            return isNum;
+            return Double.TryParse((string)p[0], System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out double retNum);
         }
     }
 }
